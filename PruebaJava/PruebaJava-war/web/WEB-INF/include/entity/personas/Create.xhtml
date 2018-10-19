@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PersonasCreateDlg" widgetVar="PersonasCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreatePersonasTitle}" closeOnEscape="true">
+
+            <h:form id="PersonasCreateForm">
+
+                <h:panelGroup id="display" rendered="#{personasController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreatePersonasLabel_id}" for="id" />
+                        <h:panelGroup>
+                            <p:calendar id="id" pattern="HH:mm:ss" value="#{personasController.selected.id}" title="#{myBundle.CreatePersonasTitle_id}" required="true" requiredMessage="#{myBundle.CreatePersonasRequiredMessage_id}" showOn="button"/>
+                            <p:tooltip for="id" value="#{personasController.getComponentMessages('id', myBundle.CreatePersonasHelpText_id)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.CreatePersonasLabel_nombre}" for="nombre" />
+                        <h:panelGroup>
+                            <p:inputText id="nombre" value="#{personasController.selected.nombre}" title="#{myBundle.CreatePersonasTitle_nombre}" size="20" maxlength="20"/>
+                            <p:tooltip for="nombre" value="#{personasController.getComponentMessages('nombre', myBundle.CreatePersonasHelpText_nombre)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.CreatePersonasLabel_apellido}" for="apellido" />
+                        <h:panelGroup>
+                            <p:inputText id="apellido" value="#{personasController.selected.apellido}" title="#{myBundle.CreatePersonasTitle_apellido}" size="20" maxlength="20"/>
+                            <p:tooltip for="apellido" value="#{personasController.getComponentMessages('apellido', myBundle.CreatePersonasHelpText_apellido)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.CreatePersonasLabel_numeroDocumento}" for="numeroDocumento" />
+                        <h:panelGroup>
+                            <p:inputText id="numeroDocumento" value="#{personasController.selected.numeroDocumento}" title="#{myBundle.CreatePersonasTitle_numeroDocumento}"/>
+                            <p:tooltip for="numeroDocumento" value="#{personasController.getComponentMessages('numeroDocumento', myBundle.CreatePersonasHelpText_numeroDocumento)}"/>
+                        </h:panelGroup>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{personasController.saveNew}" value="#{myBundle.Save}" update="display,:PersonasListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('PersonasCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('PersonasCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

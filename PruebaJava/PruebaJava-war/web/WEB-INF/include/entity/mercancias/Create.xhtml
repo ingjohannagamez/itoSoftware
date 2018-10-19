@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MercanciasCreateDlg" widgetVar="MercanciasCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateMercanciasTitle}" closeOnEscape="true">
+
+            <h:form id="MercanciasCreateForm">
+
+                <h:panelGroup id="display" rendered="#{mercanciasController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateMercanciasLabel_id}" for="id" />
+                        <h:panelGroup>
+                            <p:inputText id="id" value="#{mercanciasController.selected.id}" title="#{myBundle.CreateMercanciasTitle_id}" required="true" requiredMessage="#{myBundle.CreateMercanciasRequiredMessage_id}"/>
+                            <p:tooltip for="id" value="#{mercanciasController.getComponentMessages('id', myBundle.CreateMercanciasHelpText_id)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.CreateMercanciasLabel_nombreProducto}" for="nombreProducto" />
+                        <h:panelGroup>
+                            <p:inputText id="nombreProducto" value="#{mercanciasController.selected.nombreProducto}" title="#{myBundle.CreateMercanciasTitle_nombreProducto}" size="20" maxlength="20"/>
+                            <p:tooltip for="nombreProducto" value="#{mercanciasController.getComponentMessages('nombreProducto', myBundle.CreateMercanciasHelpText_nombreProducto)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.CreateMercanciasLabel_ciudadDestino}" for="ciudadDestino" />
+                        <h:panelGroup>
+                            <p:inputText id="ciudadDestino" value="#{mercanciasController.selected.ciudadDestino}" title="#{myBundle.CreateMercanciasTitle_ciudadDestino}" size="20" maxlength="20"/>
+                            <p:tooltip for="ciudadDestino" value="#{mercanciasController.getComponentMessages('ciudadDestino', myBundle.CreateMercanciasHelpText_ciudadDestino)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.CreateMercanciasLabel_direccion}" for="direccion" />
+                        <h:panelGroup>
+                            <p:inputText id="direccion" value="#{mercanciasController.selected.direccion}" title="#{myBundle.CreateMercanciasTitle_direccion}" size="20" maxlength="20"/>
+                            <p:tooltip for="direccion" value="#{mercanciasController.getComponentMessages('direccion', myBundle.CreateMercanciasHelpText_direccion)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.CreateMercanciasLabel_fechaSalida}" for="fechaSalida" />
+                        <h:panelGroup>
+                            <p:calendar id="fechaSalida" pattern="HH:mm:ss" value="#{mercanciasController.selected.fechaSalida}" title="#{myBundle.CreateMercanciasTitle_fechaSalida}"  showOn="button"/>
+                            <p:tooltip for="fechaSalida" value="#{mercanciasController.getComponentMessages('fechaSalida', myBundle.CreateMercanciasHelpText_fechaSalida)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.CreateMercanciasLabel_precio}" for="precio" />
+                        <h:panelGroup>
+                            <p:inputText id="precio" value="#{mercanciasController.selected.precio}" title="#{myBundle.CreateMercanciasTitle_precio}"/>
+                            <p:tooltip for="precio" value="#{mercanciasController.getComponentMessages('precio', myBundle.CreateMercanciasHelpText_precio)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.CreateMercanciasLabel_estadoEnvio}" for="estadoEnvio" />
+                        <h:panelGroup>
+                            <p:inputText id="estadoEnvio" value="#{mercanciasController.selected.estadoEnvio}" title="#{myBundle.CreateMercanciasTitle_estadoEnvio}" size="10" maxlength="10"/>
+                            <p:tooltip for="estadoEnvio" value="#{mercanciasController.getComponentMessages('estadoEnvio', myBundle.CreateMercanciasHelpText_estadoEnvio)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.CreateMercanciasLabel_destinatarioId}" for="destinatarioId" />
+                        <h:panelGroup>
+                            <p:inputText id="destinatarioId" value="#{mercanciasController.selected.destinatarioId}" title="#{myBundle.CreateMercanciasTitle_destinatarioId}"/>
+                            <p:tooltip for="destinatarioId" value="#{mercanciasController.getComponentMessages('destinatarioId', myBundle.CreateMercanciasHelpText_destinatarioId)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.CreateMercanciasLabel_usuarioRegistroId}" for="usuarioRegistroId" />
+                        <h:panelGroup>
+                            <p:inputText id="usuarioRegistroId" value="#{mercanciasController.selected.usuarioRegistroId}" title="#{myBundle.CreateMercanciasTitle_usuarioRegistroId}"/>
+                            <p:tooltip for="usuarioRegistroId" value="#{mercanciasController.getComponentMessages('usuarioRegistroId', myBundle.CreateMercanciasHelpText_usuarioRegistroId)}"/>
+                        </h:panelGroup>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{mercanciasController.saveNew}" value="#{myBundle.Save}" update="display,:MercanciasListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('MercanciasCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('MercanciasCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

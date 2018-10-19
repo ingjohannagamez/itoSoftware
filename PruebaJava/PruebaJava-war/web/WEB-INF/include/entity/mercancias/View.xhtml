@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="MercanciasViewDlg" widgetVar="MercanciasViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewMercanciasTitle}" closeOnEscape="true">
+
+            <h:form id="MercanciasViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{mercanciasController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewMercanciasLabel_id}"/>
+                        <h:outputText value="#{mercanciasController.selected.id}" title="#{myBundle.ViewMercanciasTitle_id}"/>
+
+                        <h:outputText value="#{myBundle.ViewMercanciasLabel_nombreProducto}"/>
+                        <h:outputText value="#{mercanciasController.selected.nombreProducto}" title="#{myBundle.ViewMercanciasTitle_nombreProducto}"/>
+
+                        <h:outputText value="#{myBundle.ViewMercanciasLabel_ciudadDestino}"/>
+                        <h:outputText value="#{mercanciasController.selected.ciudadDestino}" title="#{myBundle.ViewMercanciasTitle_ciudadDestino}"/>
+
+                        <h:outputText value="#{myBundle.ViewMercanciasLabel_direccion}"/>
+                        <h:outputText value="#{mercanciasController.selected.direccion}" title="#{myBundle.ViewMercanciasTitle_direccion}"/>
+
+                        <h:outputText value="#{myBundle.ViewMercanciasLabel_fechaSalida}"/>
+                        <h:outputText value="#{mercanciasController.selected.fechaSalida}" title="#{myBundle.ViewMercanciasTitle_fechaSalida}">
+                            <f:convertDateTime pattern="HH:mm:ss" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewMercanciasLabel_precio}"/>
+                        <h:outputText value="#{mercanciasController.selected.precio}" title="#{myBundle.ViewMercanciasTitle_precio}"/>
+
+                        <h:outputText value="#{myBundle.ViewMercanciasLabel_estadoEnvio}"/>
+                        <h:outputText value="#{mercanciasController.selected.estadoEnvio}" title="#{myBundle.ViewMercanciasTitle_estadoEnvio}"/>
+
+                        <h:outputText value="#{myBundle.ViewMercanciasLabel_destinatarioId}"/>
+                        <h:outputText value="#{mercanciasController.selected.destinatarioId}" title="#{myBundle.ViewMercanciasTitle_destinatarioId}"/>
+
+                        <h:outputText value="#{myBundle.ViewMercanciasLabel_usuarioRegistroId}"/>
+                        <h:outputText value="#{mercanciasController.selected.usuarioRegistroId}" title="#{myBundle.ViewMercanciasTitle_usuarioRegistroId}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('MercanciasViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

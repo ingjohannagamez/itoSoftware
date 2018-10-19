@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="PersonasEditDlg" widgetVar="PersonasEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditPersonasTitle}" closeOnEscape="true">
+
+            <h:form id="PersonasEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{personasController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditPersonasLabel_id}" for="id" />
+                        <h:panelGroup>
+                            <h:outputText id="id" value="#{personasController.selected.id}" />
+                            <p:tooltip for="id" value="#{personasController.getComponentMessages('id', myBundle.EditPersonasHelpText_id)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.EditPersonasLabel_nombre}" for="nombre" />
+                        <h:panelGroup>
+                            <p:inputText id="nombre" value="#{personasController.selected.nombre}" title="#{myBundle.EditPersonasTitle_nombre}" size="20" maxlength="20"/>
+                            <p:tooltip for="nombre" value="#{personasController.getComponentMessages('nombre', myBundle.EditPersonasHelpText_nombre)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.EditPersonasLabel_apellido}" for="apellido" />
+                        <h:panelGroup>
+                            <p:inputText id="apellido" value="#{personasController.selected.apellido}" title="#{myBundle.EditPersonasTitle_apellido}" size="20" maxlength="20"/>
+                            <p:tooltip for="apellido" value="#{personasController.getComponentMessages('apellido', myBundle.EditPersonasHelpText_apellido)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.EditPersonasLabel_numeroDocumento}" for="numeroDocumento" />
+                        <h:panelGroup>
+                            <p:inputText id="numeroDocumento" value="#{personasController.selected.numeroDocumento}" title="#{myBundle.EditPersonasTitle_numeroDocumento}"/>
+                            <p:tooltip for="numeroDocumento" value="#{personasController.getComponentMessages('numeroDocumento', myBundle.EditPersonasHelpText_numeroDocumento)}"/>
+                        </h:panelGroup>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{personasController.save}" value="#{myBundle.Save}" update="display,:PersonasListForm:datalist,:PersonasListForm:PersonasDataTableContextMenu,:growl" oncomplete="handleSubmit(xhr,status,args,PF('PersonasEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('PersonasEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

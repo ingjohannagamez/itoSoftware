@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PerfilesCreateDlg" widgetVar="PerfilesCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreatePerfilesTitle}" closeOnEscape="true">
+
+            <h:form id="PerfilesCreateForm">
+
+                <h:panelGroup id="display" rendered="#{perfilesController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreatePerfilesLabel_id}" for="id" />
+                        <h:panelGroup>
+                            <p:calendar id="id" pattern="HH:mm:ss" value="#{perfilesController.selected.id}" title="#{myBundle.CreatePerfilesTitle_id}" required="true" requiredMessage="#{myBundle.CreatePerfilesRequiredMessage_id}" showOn="button"/>
+                            <p:tooltip for="id" value="#{perfilesController.getComponentMessages('id', myBundle.CreatePerfilesHelpText_id)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.CreatePerfilesLabel_perfil}" for="perfil" />
+                        <h:panelGroup>
+                            <p:calendar id="perfil" pattern="HH:mm:ss" value="#{perfilesController.selected.perfil}" title="#{myBundle.CreatePerfilesTitle_perfil}"  showOn="button"/>
+                            <p:tooltip for="perfil" value="#{perfilesController.getComponentMessages('perfil', myBundle.CreatePerfilesHelpText_perfil)}"/>
+                        </h:panelGroup>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{perfilesController.saveNew}" value="#{myBundle.Save}" update="display,:PerfilesListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('PerfilesCreateDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('PerfilesCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

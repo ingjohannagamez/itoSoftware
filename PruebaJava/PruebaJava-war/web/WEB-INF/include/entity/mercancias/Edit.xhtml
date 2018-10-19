@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="MercanciasEditDlg" widgetVar="MercanciasEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditMercanciasTitle}" closeOnEscape="true">
+
+            <h:form id="MercanciasEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{mercanciasController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditMercanciasLabel_id}" for="id" />
+                        <h:panelGroup>
+                            <h:outputText id="id" value="#{mercanciasController.selected.id}" />
+                            <p:tooltip for="id" value="#{mercanciasController.getComponentMessages('id', myBundle.EditMercanciasHelpText_id)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.EditMercanciasLabel_nombreProducto}" for="nombreProducto" />
+                        <h:panelGroup>
+                            <p:inputText id="nombreProducto" value="#{mercanciasController.selected.nombreProducto}" title="#{myBundle.EditMercanciasTitle_nombreProducto}" size="20" maxlength="20"/>
+                            <p:tooltip for="nombreProducto" value="#{mercanciasController.getComponentMessages('nombreProducto', myBundle.EditMercanciasHelpText_nombreProducto)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.EditMercanciasLabel_ciudadDestino}" for="ciudadDestino" />
+                        <h:panelGroup>
+                            <p:inputText id="ciudadDestino" value="#{mercanciasController.selected.ciudadDestino}" title="#{myBundle.EditMercanciasTitle_ciudadDestino}" size="20" maxlength="20"/>
+                            <p:tooltip for="ciudadDestino" value="#{mercanciasController.getComponentMessages('ciudadDestino', myBundle.EditMercanciasHelpText_ciudadDestino)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.EditMercanciasLabel_direccion}" for="direccion" />
+                        <h:panelGroup>
+                            <p:inputText id="direccion" value="#{mercanciasController.selected.direccion}" title="#{myBundle.EditMercanciasTitle_direccion}" size="20" maxlength="20"/>
+                            <p:tooltip for="direccion" value="#{mercanciasController.getComponentMessages('direccion', myBundle.EditMercanciasHelpText_direccion)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.EditMercanciasLabel_fechaSalida}" for="fechaSalida" />
+                        <h:panelGroup>
+                            <p:calendar id="fechaSalida" pattern="HH:mm:ss" value="#{mercanciasController.selected.fechaSalida}" title="#{myBundle.EditMercanciasTitle_fechaSalida}"  showOn="button"/>
+                            <p:tooltip for="fechaSalida" value="#{mercanciasController.getComponentMessages('fechaSalida', myBundle.EditMercanciasHelpText_fechaSalida)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.EditMercanciasLabel_precio}" for="precio" />
+                        <h:panelGroup>
+                            <p:inputText id="precio" value="#{mercanciasController.selected.precio}" title="#{myBundle.EditMercanciasTitle_precio}"/>
+                            <p:tooltip for="precio" value="#{mercanciasController.getComponentMessages('precio', myBundle.EditMercanciasHelpText_precio)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.EditMercanciasLabel_estadoEnvio}" for="estadoEnvio" />
+                        <h:panelGroup>
+                            <p:inputText id="estadoEnvio" value="#{mercanciasController.selected.estadoEnvio}" title="#{myBundle.EditMercanciasTitle_estadoEnvio}" size="10" maxlength="10"/>
+                            <p:tooltip for="estadoEnvio" value="#{mercanciasController.getComponentMessages('estadoEnvio', myBundle.EditMercanciasHelpText_estadoEnvio)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.EditMercanciasLabel_destinatarioId}" for="destinatarioId" />
+                        <h:panelGroup>
+                            <p:inputText id="destinatarioId" value="#{mercanciasController.selected.destinatarioId}" title="#{myBundle.EditMercanciasTitle_destinatarioId}"/>
+                            <p:tooltip for="destinatarioId" value="#{mercanciasController.getComponentMessages('destinatarioId', myBundle.EditMercanciasHelpText_destinatarioId)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.EditMercanciasLabel_usuarioRegistroId}" for="usuarioRegistroId" />
+                        <h:panelGroup>
+                            <p:inputText id="usuarioRegistroId" value="#{mercanciasController.selected.usuarioRegistroId}" title="#{myBundle.EditMercanciasTitle_usuarioRegistroId}"/>
+                            <p:tooltip for="usuarioRegistroId" value="#{mercanciasController.getComponentMessages('usuarioRegistroId', myBundle.EditMercanciasHelpText_usuarioRegistroId)}"/>
+                        </h:panelGroup>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{mercanciasController.save}" value="#{myBundle.Save}" update="display,:MercanciasListForm:datalist,:MercanciasListForm:MercanciasDataTableContextMenu,:growl" oncomplete="handleSubmit(xhr,status,args,PF('MercanciasEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('MercanciasEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

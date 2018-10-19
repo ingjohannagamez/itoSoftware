@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="UsuariosEditDlg" widgetVar="UsuariosEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditUsuariosTitle}" closeOnEscape="true">
+
+            <h:form id="UsuariosEditForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{usuariosController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditUsuariosLabel_id}" for="id" />
+                        <h:panelGroup>
+                            <h:outputText id="id" value="#{usuariosController.selected.id}" />
+                            <p:tooltip for="id" value="#{usuariosController.getComponentMessages('id', myBundle.EditUsuariosHelpText_id)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.EditUsuariosLabel_usuario}" for="usuario" />
+                        <h:panelGroup>
+                            <p:inputText id="usuario" value="#{usuariosController.selected.usuario}" title="#{myBundle.EditUsuariosTitle_usuario}" size="20" maxlength="20"/>
+                            <p:tooltip for="usuario" value="#{usuariosController.getComponentMessages('usuario', myBundle.EditUsuariosHelpText_usuario)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.EditUsuariosLabel_perfilId}" for="perfilId" />
+                        <h:panelGroup>
+                            <p:inputText id="perfilId" value="#{usuariosController.selected.perfilId}" title="#{myBundle.EditUsuariosTitle_perfilId}"/>
+                            <p:tooltip for="perfilId" value="#{usuariosController.getComponentMessages('perfilId', myBundle.EditUsuariosHelpText_perfilId)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.EditUsuariosLabel_personaId}" for="personaId" />
+                        <h:panelGroup>
+                            <p:inputText id="personaId" value="#{usuariosController.selected.personaId}" title="#{myBundle.EditUsuariosTitle_personaId}"/>
+                            <p:tooltip for="personaId" value="#{usuariosController.getComponentMessages('personaId', myBundle.EditUsuariosHelpText_personaId)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.EditUsuariosLabel_contrasena}" for="contrasena" />
+                        <h:panelGroup>
+                            <p:inputText id="contrasena" value="#{usuariosController.selected.contrasena}" title="#{myBundle.EditUsuariosTitle_contrasena}" size="20" maxlength="20"/>
+                            <p:tooltip for="contrasena" value="#{usuariosController.getComponentMessages('contrasena', myBundle.EditUsuariosHelpText_contrasena)}"/>
+                        </h:panelGroup>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{usuariosController.save}" value="#{myBundle.Save}" update="display,:UsuariosListForm:datalist,:UsuariosListForm:UsuariosDataTableContextMenu,:growl" oncomplete="handleSubmit(xhr,status,args,PF('UsuariosEditDialog'));">
+                        <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>
+                    </p:commandButton>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('UsuariosEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>
