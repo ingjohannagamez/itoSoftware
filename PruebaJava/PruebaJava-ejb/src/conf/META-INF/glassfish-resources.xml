@@ -5,10 +5,10 @@
         <property name="serverName" value="190.8.176.3"/>
         <property name="portNumber" value="3306"/>
         <property name="databaseName" value="afsolu_db_pruebas_java"/>
-        <property name="User" value="afsolu_johannagamez"/>
-        <property name="Password" value="Administrador01#"/>
-        <property name="URL" value="jdbc:mysql://190.8.176.3:3306/afsolu_db_pruebas_java?zeroDateTimeBehavior=convertToNull"/>
+        <property name="user" value="afsolu_johannagamez"/>
+        <property name="password" value="Administrador01#"/>
+        <property name="URL" value="jdbc:mysql://190.8.176.3:3306/afsolu_db_pruebas_java"/>
         <property name="driverClass" value="com.mysql.jdbc.Driver"/>
     </jdbc-connection-pool>
-    <jdbc-resource enabled="true" jndi-name="java:module/db_pruebas_java" object-type="user" pool-name="mysql_afsolu_db_pruebas_java_afsolu_johannagamezPool"/>
+    <jdbc-resource enabled="true" jndi-name="jdbc/db_pruebas_java" object-type="user" pool-name="mysql_afsolu_db_pruebas_java_afsolu_johannagamezPool"/>
 </resources>
