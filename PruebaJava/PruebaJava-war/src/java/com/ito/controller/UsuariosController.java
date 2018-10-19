@@ -24,6 +24,7 @@ public class UsuariosController implements Serializable {
     private UsuariosFacade usuariosFacade;
 
     public UsuariosController() {
+        System.out.println("entro");
     }
 
     /**
