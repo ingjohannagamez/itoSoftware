@@ -14,16 +14,9 @@
 
                 <h:panelGroup id="display" rendered="#{perfilesController.selected != null}">
                     <p:panelGrid columns="2" columnClasses="column">
-
-                        <p:outputLabel value="#{myBundle.CreatePerfilesLabel_id}" for="id" />
-                        <h:panelGroup>
-                            <p:calendar id="id" pattern="HH:mm:ss" value="#{perfilesController.selected.id}" title="#{myBundle.CreatePerfilesTitle_id}" required="true" requiredMessage="#{myBundle.CreatePerfilesRequiredMessage_id}" showOn="button"/>
-                            <p:tooltip for="id" value="#{perfilesController.getComponentMessages('id', myBundle.CreatePerfilesHelpText_id)}"/>
-                        </h:panelGroup>
-
                         <p:outputLabel value="#{myBundle.CreatePerfilesLabel_perfil}" for="perfil" />
                         <h:panelGroup>
-                            <p:calendar id="perfil" pattern="HH:mm:ss" value="#{perfilesController.selected.perfil}" title="#{myBundle.CreatePerfilesTitle_perfil}"  showOn="button"/>
+                            <p:inputText id="perfil" value="#{perfilesController.selected.perfil}" title="#{myBundle.CreatePerfilesTitle_perfil}" required="true" requiredMessage="#{myBundle.CreatePerfilesRequiredMessage_perfil}" size="20" maxlength="20"/>
                             <p:tooltip for="perfil" value="#{perfilesController.getComponentMessages('perfil', myBundle.CreatePerfilesHelpText_perfil)}"/>
                         </h:panelGroup>
                     </p:panelGrid>

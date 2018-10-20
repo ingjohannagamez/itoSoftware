@@ -6,63 +6,65 @@
 package com.ito.prueba.entidad;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author itoadmin
+ * @author pipo0
  */
 @Entity
 @Table(name = "personas")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Personas.findAll", query = "SELECT p FROM Personas p")
-    , @NamedQuery(name = "Personas.findById", query = "SELECT p FROM Personas p WHERE p.id = :id")
-    , @NamedQuery(name = "Personas.findByNombre", query = "SELECT p FROM Personas p WHERE p.nombre = :nombre")
-    , @NamedQuery(name = "Personas.findByApellido", query = "SELECT p FROM Personas p WHERE p.apellido = :apellido")
-    , @NamedQuery(name = "Personas.findByNumeroDocumento", query = "SELECT p FROM Personas p WHERE p.numeroDocumento = :numeroDocumento")})
 public class Personas implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
-    @Column(name = "id")
-    @Temporal(TemporalType.TIME)
-    private Date id;
+    private Integer id;
     @Size(max = 20)
-    @Column(name = "nombre")
     private String nombre;
     @Size(max = 20)
-    @Column(name = "apellido")
     private String apellido;
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "numero_documento")
-    private Integer numeroDocumento;
+    private int numeroDocumento;
+    @OneToMany(mappedBy = "destinatarioId", fetch = FetchType.LAZY)
+    private List<Mercancias> mercanciasList;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "personaId", fetch = FetchType.LAZY)
+    private Usuarios usuarios;
 
     public Personas() {
     }
 
-    public Personas(Date id) {
+    public Personas(Integer id) {
         this.id = id;
     }
 
-    public Date getId() {
+    public Personas(Integer id, int numeroDocumento) {
+        this.id = id;
+        this.numeroDocumento = numeroDocumento;
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Date id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -82,12 +84,29 @@ public class Personas implements Serializable {
         this.apellido = apellido;
     }
 
-    public Integer getNumeroDocumento() {
+    public int getNumeroDocumento() {
         return numeroDocumento;
     }
 
-    public void setNumeroDocumento(Integer numeroDocumento) {
+    public void setNumeroDocumento(int numeroDocumento) {
         this.numeroDocumento = numeroDocumento;
+    }
+
+    @XmlTransient
+    public List<Mercancias> getMercanciasList() {
+        return mercanciasList;
+    }
+
+    public void setMercanciasList(List<Mercancias> mercanciasList) {
+        this.mercanciasList = mercanciasList;
+    }
+
+    public Usuarios getUsuarios() {
+        return usuarios;
+    }
+
+    public void setUsuarios(Usuarios usuarios) {
+        this.usuarios = usuarios;
     }
 
     @Override
@@ -112,7 +131,7 @@ public class Personas implements Serializable {
 
     @Override
     public String toString() {
-        return "com.ito.prueba.entidad.Personas[ id=" + id + " ]";
+        return "com.ito.entity.Personas[ id=" + id + " ]";
     }
     
 }

@@ -10,41 +10,29 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author itoadmin
+ * @author pipo0
  */
 @Entity
 @Table(name = "mercancias")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Mercancias.findAll", query = "SELECT m FROM Mercancias m")
-    , @NamedQuery(name = "Mercancias.findById", query = "SELECT m FROM Mercancias m WHERE m.id = :id")
-    , @NamedQuery(name = "Mercancias.findByNombreProducto", query = "SELECT m FROM Mercancias m WHERE m.nombreProducto = :nombreProducto")
-    , @NamedQuery(name = "Mercancias.findByCiudadDestino", query = "SELECT m FROM Mercancias m WHERE m.ciudadDestino = :ciudadDestino")
-    , @NamedQuery(name = "Mercancias.findByDireccion", query = "SELECT m FROM Mercancias m WHERE m.direccion = :direccion")
-    , @NamedQuery(name = "Mercancias.findByFechaSalida", query = "SELECT m FROM Mercancias m WHERE m.fechaSalida = :fechaSalida")
-    , @NamedQuery(name = "Mercancias.findByPrecio", query = "SELECT m FROM Mercancias m WHERE m.precio = :precio")
-    , @NamedQuery(name = "Mercancias.findByEstadoEnvio", query = "SELECT m FROM Mercancias m WHERE m.estadoEnvio = :estadoEnvio")
-    , @NamedQuery(name = "Mercancias.findByDestinatarioId", query = "SELECT m FROM Mercancias m WHERE m.destinatarioId = :destinatarioId")
-    , @NamedQuery(name = "Mercancias.findByUsuarioRegistroId", query = "SELECT m FROM Mercancias m WHERE m.usuarioRegistroId = :usuarioRegistroId")})
 public class Mercancias implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
-    @Column(name = "id")
     private Integer id;
     @Size(max = 20)
     @Column(name = "nombre_producto")
@@ -53,20 +41,20 @@ public class Mercancias implements Serializable {
     @Column(name = "ciudad_destino")
     private String ciudadDestino;
     @Size(max = 20)
-    @Column(name = "direccion")
     private String direccion;
     @Column(name = "fecha_salida")
     @Temporal(TemporalType.TIME)
     private Date fechaSalida;
-    @Column(name = "precio")
     private Integer precio;
     @Size(max = 10)
     @Column(name = "estado_envio")
     private String estadoEnvio;
-    @Column(name = "destinatario_id")
-    private Integer destinatarioId;
-    @Column(name = "usuario_registro_id")
-    private Integer usuarioRegistroId;
+    @JoinColumn(name = "destinatario_id", referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Personas destinatarioId;
+    @JoinColumn(name = "usuario_registro_id", referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Usuarios usuarioRegistroId;
 
     public Mercancias() {
     }
@@ -131,19 +119,19 @@ public class Mercancias implements Serializable {
         this.estadoEnvio = estadoEnvio;
     }
 
-    public Integer getDestinatarioId() {
+    public Personas getDestinatarioId() {
         return destinatarioId;
     }
 
-    public void setDestinatarioId(Integer destinatarioId) {
+    public void setDestinatarioId(Personas destinatarioId) {
         this.destinatarioId = destinatarioId;
     }
 
-    public Integer getUsuarioRegistroId() {
+    public Usuarios getUsuarioRegistroId() {
         return usuarioRegistroId;
     }
 
-    public void setUsuarioRegistroId(Integer usuarioRegistroId) {
+    public void setUsuarioRegistroId(Usuarios usuarioRegistroId) {
         this.usuarioRegistroId = usuarioRegistroId;
     }
 
@@ -169,7 +157,7 @@ public class Mercancias implements Serializable {
 
     @Override
     public String toString() {
-        return "com.ito.prueba.entidad.Mercancias[ id=" + id + " ]";
+        return "com.ito.entity.Mercancias[ id=" + id + " ]";
     }
     
 }

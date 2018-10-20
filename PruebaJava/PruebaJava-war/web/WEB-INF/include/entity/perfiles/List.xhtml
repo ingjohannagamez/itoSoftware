@@ -17,7 +17,7 @@
             </p:contextMenu>
             <p:dataTable id="datalist"
                          value="#{perfilesController.items}"
-                         lazy="true"
+                         rowKey="#{item.id}"
                          var="item"
                          paginator="true"
                          rows="10"
@@ -34,9 +34,7 @@
                     <f:facet name="header">
                         <h:outputText value="#{myBundle.ListPerfilesTitle_id}"/>
                     </f:facet>
-                    <h:outputText value="#{item.id}">
-                        <f:convertDateTime pattern="HH:mm:ss" />
-                    </h:outputText>
+                    <h:outputText value="#{item.id}"/>
                 </p:column>
 
 
@@ -44,9 +42,7 @@
                     <f:facet name="header">
                         <h:outputText value="#{myBundle.ListPerfilesTitle_perfil}"/>
                     </f:facet>
-                    <h:outputText value="#{item.perfil}">
-                        <f:convertDateTime pattern="HH:mm:ss" />
-                    </h:outputText>
+                    <h:outputText value="#{item.perfil}"/>
                 </p:column>
 
 

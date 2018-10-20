@@ -3,7 +3,6 @@ package com.ito.controller;
 import controller.util.JsfUtil;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,44 +29,14 @@ public abstract class AbstractController<T> implements Serializable {
     public AbstractController() {
     }
 
+    public enum PersistAction {
+        CREATE,
+        DELETE,
+        UPDATE
+    }
+
     public AbstractController(Class<T> itemClass) {
         this.itemClass = itemClass;
-    }
-
-    /**
-     * Retrieve the currently selected item.
-     *
-     * @return the currently selected Entity
-     */
-    public T getSelected() {
-        return selected;
-    }
-
-    /**
-     * Pass in the currently selected item.
-     *
-     * @param selected the Entity that should be set as selected
-     */
-    public void setSelected(T selected) {
-        this.selected = selected;
-    }
-
-    /**
-     * Returns all items as a Collection object.
-     *
-     * @return a collection of Entity items returned by the data layer
-     */
-    public List<T> getItems() {
-        return items;
-    }
-
-    /**
-     * Pass in collection of items
-     *
-     * @param items a collection of Entity items
-     */
-    public void setItems(List<T> items) {
-        this.items = items;
     }
 
     /**
@@ -122,23 +91,52 @@ public abstract class AbstractController<T> implements Serializable {
         }
     }
 
-    private List<T> refreshItem(T item, Collection<T> items) {
-        // Use List#set to replace the existing instance of this entity
-        // If items is not a List, convert the Collection to a List
-        List<T> itemList;
-        if (this.items instanceof List) {
-            itemList = (List<T>) items;
-        } else {
-            itemList = new ArrayList<>(items);
-        }
-        int i = itemList.indexOf(item);
-        if (i >= 0) {
-            try {
-                itemList.set(i, item);
-            } catch (UnsupportedOperationException ex) {
-                return refreshItem(item, new ArrayList<>(items));
-            }
-        }
-        return itemList;
+    public void refreshItems() {
+        this.items.add(this.selected);
     }
+
+    public Class<T> getItemClass() {
+        return itemClass;
+    }
+
+    public void setItemClass(Class<T> itemClass) {
+        this.itemClass = itemClass;
+    }
+
+    /**
+     * Retrieve the currently selected item.
+     *
+     * @return the currently selected Entity
+     */
+    public T getSelected() {
+        return selected;
+    }
+
+    /**
+     * Pass in the currently selected item.
+     *
+     * @param selected the Entity that should be set as selected
+     */
+    public void setSelected(T selected) {
+        this.selected = selected;
+    }
+
+    /**
+     * Returns all items as a Collection object.
+     *
+     * @return a collection of Entity items returned by the data layer
+     */
+    public List<T> getItems() {
+        return items;
+    }
+
+    /**
+     * Pass in collection of items
+     *
+     * @param items a collection of Entity items
+     */
+    public void setItems(List<T> items) {
+        this.items = items;
+    }
+
 }

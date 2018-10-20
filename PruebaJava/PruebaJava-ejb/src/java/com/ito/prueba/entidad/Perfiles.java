@@ -6,64 +6,75 @@
 package com.ito.prueba.entidad;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.Column;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author itoadmin
+ * @author pipo0
  */
 @Entity
 @Table(name = "perfiles")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Perfiles.findAll", query = "SELECT p FROM Perfiles p")
-    , @NamedQuery(name = "Perfiles.findById", query = "SELECT p FROM Perfiles p WHERE p.id = :id")
-    , @NamedQuery(name = "Perfiles.findByPerfil", query = "SELECT p FROM Perfiles p WHERE p.perfil = :perfil")})
 public class Perfiles implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    private Integer id;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "id")
-    @Temporal(TemporalType.TIME)
-    private Date id;
-    @Column(name = "perfil")
-    @Temporal(TemporalType.TIME)
-    private Date perfil;
+    @Size(min = 1, max = 20)
+    private String perfil;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "perfilId", fetch = FetchType.LAZY)
+    private List<Usuarios> usuariosList;
 
     public Perfiles() {
     }
 
-    public Perfiles(Date id) {
+    public Perfiles(Integer id) {
         this.id = id;
     }
 
-    public Date getId() {
+    public Perfiles(Integer id, String perfil) {
+        this.id = id;
+        this.perfil = perfil;
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Date id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public Date getPerfil() {
+    public String getPerfil() {
         return perfil;
     }
 
-    public void setPerfil(Date perfil) {
+    public void setPerfil(String perfil) {
         this.perfil = perfil;
+    }
+
+    @XmlTransient
+    public List<Usuarios> getUsuariosList() {
+        return usuariosList;
+    }
+
+    public void setUsuariosList(List<Usuarios> usuariosList) {
+        this.usuariosList = usuariosList;
     }
 
     @Override
@@ -88,7 +99,7 @@ public class Perfiles implements Serializable {
 
     @Override
     public String toString() {
-        return "com.ito.prueba.entidad.Perfiles[ id=" + id + " ]";
+        return "com.ito.entity.Perfiles[ id=" + id + " ]";
     }
     
 }
