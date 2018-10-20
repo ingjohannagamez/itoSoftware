@@ -99,7 +99,7 @@ public class Perfiles implements Serializable {
 
     @Override
     public String toString() {
-        return "com.ito.entity.Perfiles[ id=" + id + " ]";
+        return this.getPerfil() != null ? this.getPerfil() : "";
     }
-    
+
 }

@@ -30,14 +30,6 @@
                 <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton"/>
                 <p:ajax event="rowDblselect" onsuccess="document.getElementById('PerfilesListForm:viewButton').click();"/>
 
-                <p:column sortBy="#{item.id}" filterBy="#{item.id}">
-                    <f:facet name="header">
-                        <h:outputText value="#{myBundle.ListPerfilesTitle_id}"/>
-                    </f:facet>
-                    <h:outputText value="#{item.id}"/>
-                </p:column>
-
-
                 <p:column sortBy="#{item.perfil}" filterBy="#{item.perfil}">
                     <f:facet name="header">
                         <h:outputText value="#{myBundle.ListPerfilesTitle_perfil}"/>

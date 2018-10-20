@@ -101,6 +101,7 @@ public class Personas implements Serializable {
         this.mercanciasList = mercanciasList;
     }
 
+    @XmlTransient
     public Usuarios getUsuarios() {
         return usuarios;
     }
@@ -131,7 +132,7 @@ public class Personas implements Serializable {
 
     @Override
     public String toString() {
-        return "com.ito.entity.Personas[ id=" + id + " ]";
+        return this.getNombre() != null ? this.getNombre().concat(this.getApellido() == null ? "" : " " + this.getApellido()) : "";
     }
-    
+
 }

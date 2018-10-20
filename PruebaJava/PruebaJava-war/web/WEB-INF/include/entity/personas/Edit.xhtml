@@ -39,19 +39,21 @@
                             <p:tooltip for="numeroDocumento" value="#{personasController.getComponentMessages('numeroDocumento', myBundle.EditPersonasHelpText_numeroDocumento)}"/>
                         </h:panelGroup>
 
-                        <p:outputLabel value="#{myBundle.EditPersonasLabel_usuarios}" for="usuarios" />
-                        <h:panelGroup>
-                            <p:selectOneMenu id="usuarios" value="#{personasController.selected.usuarios}"  converter="usuariosConverter">
-                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
-                                <f:selectItems value="#{usuariosController.items}"
-                                               var="usuariosItem"
-                                               itemValue="#{usuariosItem}"
-                                               itemLabel="#{usuariosItem.id.toString()}"
-                                               />
+                        <ui:remove>
+                            <p:outputLabel value="#{myBundle.EditPersonasLabel_usuarios}" for="usuarios" />
+                            <h:panelGroup>
+                                <p:selectOneMenu id="usuarios" value="#{personasController.selected.usuarios}"  converter="usuariosConverter">
+                                    <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                    <f:selectItems value="#{usuariosController.items}"
+                                                   var="usuariosItem"
+                                                   itemValue="#{usuariosItem}"
+                                                   itemLabel="#{usuariosItem.id.toString()}"
+                                                   />
 
-                            </p:selectOneMenu>
-                            <p:tooltip for="usuarios" value="#{personasController.getComponentMessages('usuarios', myBundle.EditPersonasHelpText_usuarios)}"/>
-                        </h:panelGroup>
+                                </p:selectOneMenu>
+                                <p:tooltip for="usuarios" value="#{personasController.getComponentMessages('usuarios', myBundle.EditPersonasHelpText_usuarios)}"/>
+                            </h:panelGroup>
+                        </ui:remove>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{personasController.save}" value="#{myBundle.Save}" update="display,:PersonasListForm:datalist,:PersonasListForm:PersonasDataTableContextMenu,:growl" oncomplete="handleSubmit(xhr,status,args,PF('PersonasEditDialog'));">
                         <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmEditMessage}" icon="ui-icon-alert"/>

@@ -14,43 +14,21 @@
                 <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('MercanciasListForm:viewButton').click();" icon="ui-icon-search"/>
                 <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('MercanciasListForm:editButton').click();" icon="ui-icon-pencil"/>
                 <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('MercanciasListForm:deleteButton').click();" icon="ui-icon-trash"/>
-                <p:separator/>
-                <p:menuitem value="#{myBundle.MercanciasMenuItem_destinatarioId}" icon="ui-icon-search"  actionListener="#{mercanciasController.prepareDestinatarioId}" update=":PersonasViewForm" oncomplete="PF('PersonasViewDialog').show()" disabled="#{empty mercanciasController.selected.destinatarioId}"/>  
-                <p:menuitem value="#{myBundle.MercanciasMenuItem_usuarioRegistroId}" icon="ui-icon-search"  actionListener="#{mercanciasController.prepareUsuarioRegistroId}" update=":UsuariosViewForm" oncomplete="PF('UsuariosViewDialog').show()" disabled="#{empty mercanciasController.selected.usuarioRegistroId}"/>  
             </p:contextMenu>
             <p:dataTable id="datalist"
                          value="#{mercanciasController.items}"
-                         lazy="false"
                          rowKey="#{item.id}"
                          var="item"
                          paginator="true"
                          rows="10"
                          rowsPerPageTemplate="10,20,30,40,50"
                          selectionMode="single"
-                         selection="#{mercanciasController.selected}"
-                         filteredValue="#{mercanciasController.filteredItems}">
-                <!--
-                         To enable Lazy Loading, please copy/replace the following lines above,
-                         and be sure to replace the word HASH with the # symbol:
-                
-                         value="HASH{mercanciasController.lazyItems}"
-                         lazy="true"
-                         rowKey="HASH{item.id}"  <<< Remove this line
-                -->
-
+                         selection="#{mercanciasController.selected}">
 
                 <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:MercanciasDataTableContextMenu" listener="#{mercanciasController.resetParents}"/>
                 <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:MercanciasDataTableContextMenu" listener="#{mercanciasController.resetParents}"/>
                 <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{mercanciasController.resetParents}"/>
                 <p:ajax event="rowDblselect" onsuccess="document.getElementById('MercanciasListForm:viewButton').click();"/>
-
-                <p:column sortBy="#{item.id}" filterBy="#{item.id}">
-                    <f:facet name="header">
-                        <h:outputText value="#{myBundle.ListMercanciasTitle_id}"/>
-                    </f:facet>
-                    <h:outputText value="#{item.id}"/>
-                </p:column>
-
 
                 <p:column sortBy="#{item.nombreProducto}" filterBy="#{item.nombreProducto}">
                     <f:facet name="header">

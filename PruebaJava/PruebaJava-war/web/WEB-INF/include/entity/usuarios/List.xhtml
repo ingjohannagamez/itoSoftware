@@ -14,44 +14,21 @@
                 <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('UsuariosListForm:viewButton').click();" icon="ui-icon-search"/>
                 <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('UsuariosListForm:editButton').click();" icon="ui-icon-pencil"/>
                 <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('UsuariosListForm:deleteButton').click();" icon="ui-icon-trash"/>
-                <p:separator/>
-                <p:menuitem value="#{myBundle.UsuariosMenuItem_mercanciasList}" icon="ui-icon-search"  action="#{usuariosController.navigateMercanciasList}" disabled="#{usuariosController.isMercanciasListEmpty}" ajax="false"/>  
-                <p:menuitem value="#{myBundle.UsuariosMenuItem_perfilId}" icon="ui-icon-search"  actionListener="#{usuariosController.preparePerfilId}" update=":PerfilesViewForm" oncomplete="PF('PerfilesViewDialog').show()" disabled="#{empty usuariosController.selected.perfilId}"/>  
-                <p:menuitem value="#{myBundle.UsuariosMenuItem_personaId}" icon="ui-icon-search"  actionListener="#{usuariosController.preparePersonaId}" update=":PersonasViewForm" oncomplete="PF('PersonasViewDialog').show()" disabled="#{empty usuariosController.selected.personaId}"/>  
             </p:contextMenu>
             <p:dataTable id="datalist"
                          value="#{usuariosController.items}"
-                         lazy="false"
                          rowKey="#{item.id}"
                          var="item"
                          paginator="true"
                          rows="10"
                          rowsPerPageTemplate="10,20,30,40,50"
                          selectionMode="single"
-                         selection="#{usuariosController.selected}"
-                         filteredValue="#{usuariosController.filteredItems}">
-                <!--
-                         To enable Lazy Loading, please copy/replace the following lines above,
-                         and be sure to replace the word HASH with the # symbol:
-                
-                         value="HASH{usuariosController.lazyItems}"
-                         lazy="true"
-                         rowKey="HASH{item.id}"  <<< Remove this line
-                -->
-
+                         selection="#{usuariosController.selected}">
 
                 <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:UsuariosDataTableContextMenu" listener="#{usuariosController.resetParents}"/>
                 <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:UsuariosDataTableContextMenu" listener="#{usuariosController.resetParents}"/>
                 <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{usuariosController.resetParents}"/>
                 <p:ajax event="rowDblselect" onsuccess="document.getElementById('UsuariosListForm:viewButton').click();"/>
-
-                <p:column sortBy="#{item.id}" filterBy="#{item.id}">
-                    <f:facet name="header">
-                        <h:outputText value="#{myBundle.ListUsuariosTitle_id}"/>
-                    </f:facet>
-                    <h:outputText value="#{item.id}"/>
-                </p:column>
-
 
                 <p:column sortBy="#{item.usuario}" filterBy="#{item.usuario}">
                     <f:facet name="header">
@@ -60,7 +37,6 @@
                     <h:outputText value="#{item.usuario}"/>
                 </p:column>
 
-
                 <p:column sortBy="#{item.contrasena}" filterBy="#{item.contrasena}">
                     <f:facet name="header">
                         <h:outputText value="#{myBundle.ListUsuariosTitle_contrasena}"/>
@@ -68,14 +44,19 @@
                     <h:outputText value="#{item.contrasena}"/>
                 </p:column>
 
-
-                <p:column sortBy="#{item.personaId.id}" filterBy="#{item.personaId.id}">
+                <p:column>
                     <f:facet name="header">
                         <h:outputText value="#{myBundle.ListUsuariosTitle_personaId}"/>
                     </f:facet>
-                    <h:outputText value="#{item.personaId.id}"/>
+                    <h:outputText value="#{item.personaId.toString()}"/>
                 </p:column>
-
+                
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListPerfilesTitle_perfilesId}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.perfilId.toString()}"/>
+                </p:column>
 
             </p:dataTable>
 

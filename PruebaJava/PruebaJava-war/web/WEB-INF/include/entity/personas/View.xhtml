@@ -27,8 +27,10 @@
                         <h:outputText value="#{myBundle.ViewPersonasLabel_numeroDocumento}"/>
                         <h:outputText value="#{personasController.selected.numeroDocumento}" title="#{myBundle.ViewPersonasTitle_numeroDocumento}"/>
 
-                        <h:outputText value="#{myBundle.ViewPersonasLabel_usuarios}"/>
-                        <h:outputText value="#{personasController.selected.usuarios.id}"/>
+                        <ui:remove>
+                            <h:outputText value="#{myBundle.ViewPersonasLabel_usuarios}"/>
+                            <h:outputText value="#{personasController.selected.usuarios.id}"/>
+                        </ui:remove>
                     </p:panelGrid>
                     <p:commandButton value="#{myBundle.Close}" onclick="PF('PersonasViewDialog').hide()"/>
                 </h:panelGroup>
