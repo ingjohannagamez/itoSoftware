@@ -136,7 +136,7 @@ public class Usuarios implements Serializable {
 
     @Override
     public String toString() {
-        return "com.ito.entity.Usuarios[ id=" + id + " ]";
+        return this.getUsuario() != null ? this.getUsuario() : "";
     }
-    
+
 }

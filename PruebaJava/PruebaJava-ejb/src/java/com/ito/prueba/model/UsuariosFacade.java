@@ -28,5 +28,12 @@ public class UsuariosFacade extends AbstractFacade<Usuarios> {
     public UsuariosFacade() {
         super(Usuarios.class);
     }
-    
+
+    public Usuarios validarAcceso(String username, String password) throws Exception {
+        return em.createQuery("SELECT u FROM Usuarios u WHERE u.usuario = :username AND u.contrasena = :password", Usuarios.class)
+                .setParameter("username", username)
+                .setParameter("password", password)
+                .getSingleResult();
+    }
+
 }

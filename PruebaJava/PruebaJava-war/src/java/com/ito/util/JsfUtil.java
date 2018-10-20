@@ -83,4 +83,8 @@ public class JsfUtil {
         return "";
     }
 
+    public static void addMessage(Object object, FacesMessage message) {
+        FacesContext.getCurrentInstance().addMessage(object != null ? (String) object : null, message);
+    }
+
 }

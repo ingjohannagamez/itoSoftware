@@ -15,11 +15,13 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
+import javax.faces.application.FacesMessage;
 import javax.faces.event.ActionEvent;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
+import org.primefaces.PrimeFaces;
 
 /**
  *
@@ -28,14 +30,17 @@ import javax.validation.ConstraintViolationException;
 @Named(value = "usuariosController")
 @ViewScoped
 public class UsuariosController extends AbstractController<Usuarios> implements Serializable {
-    
+
     @EJB
     private UsuariosFacade ejbFacade;
-    
+
+    private String username;
+    private String password;
+
     public UsuariosController() {
         super(Usuarios.class);
     }
-    
+
     @PostConstruct
     private void init() {
         try {
@@ -44,17 +49,17 @@ public class UsuariosController extends AbstractController<Usuarios> implements 
             JsfUtil.addErrorMessage("Error al cargar el listado");
         }
     }
-    
+
     public void saveNew(ActionEvent event) {
         String msg = ResourceBundle.getBundle("/MyBundle").getString(this.getItemClass().getSimpleName() + "Created");
         persist(AbstractController.PersistAction.CREATE, msg);
     }
-    
+
     public void save(ActionEvent event) {
         String msg = ResourceBundle.getBundle("/MyBundle").getString(this.getItemClass().getSimpleName() + "Updated");
         persist(AbstractController.PersistAction.UPDATE, msg);
     }
-    
+
     public void delete(ActionEvent event) {
         String msg = ResourceBundle.getBundle("/MyBundle").getString(this.getItemClass().getSimpleName() + "Deleted");
         persist(AbstractController.PersistAction.DELETE, msg);
@@ -105,5 +110,49 @@ public class UsuariosController extends AbstractController<Usuarios> implements 
             }
         }
     }
-    
+
+    public void login(ActionEvent event) {
+        FacesMessage message = null;
+        boolean loggedIn = false;
+
+        Usuarios objTemp = validarAcceso();
+        
+        if (objTemp != null) {
+            loggedIn = true;
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Welcome", username);
+        } else {
+            loggedIn = false;
+            message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Loggin Error", "Invalid credentials");
+        }
+
+        JsfUtil.addMessage(null, message);
+        PrimeFaces.current().ajax().addCallbackParam("loggedIn", loggedIn);
+    }
+
+    private Usuarios validarAcceso() {
+        Usuarios respuesta;
+        try {
+            respuesta = this.ejbFacade.validarAcceso(this.username, this.password);
+        } catch (Exception e) {
+            respuesta = null;
+        }
+        return respuesta;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
 }

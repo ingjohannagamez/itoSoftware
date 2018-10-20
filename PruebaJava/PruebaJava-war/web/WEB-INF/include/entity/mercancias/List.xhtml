@@ -25,9 +25,9 @@
                          selectionMode="single"
                          selection="#{mercanciasController.selected}">
 
-                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:MercanciasDataTableContextMenu" listener="#{mercanciasController.resetParents}"/>
-                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:MercanciasDataTableContextMenu" listener="#{mercanciasController.resetParents}"/>
-                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{mercanciasController.resetParents}"/>
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:MercanciasDataTableContextMenu"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:MercanciasDataTableContextMenu"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton"/>
                 <p:ajax event="rowDblselect" onsuccess="document.getElementById('MercanciasListForm:viewButton').click();"/>
 
                 <p:column sortBy="#{item.nombreProducto}" filterBy="#{item.nombreProducto}">
