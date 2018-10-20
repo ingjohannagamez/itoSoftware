@@ -16,24 +16,14 @@
                 <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('MercanciasListForm:deleteButton').click();" icon="ui-icon-trash"/>
             </p:contextMenu>
             <p:dataTable id="datalist"
-                         value="#{mercanciasController.lazyItems}"
+                         value="#{mercanciasController.items}"
                          lazy="true"
                          var="item"
                          paginator="true"
                          rows="10"
                          rowsPerPageTemplate="10,20,30,40,50"
                          selectionMode="single"
-                         selection="#{mercanciasController.selected}"
-                         filteredValue="#{mercanciasController.filteredItems}">
-                <!--
-                         To disable Lazy Loading, please copy/replace the following lines above,
-                         and be sure to replace the word HASH with the # symbol:
-                
-                         value="HASH{mercanciasController.items}"
-                         lazy="false"
-                         rowKey="HASH{item.id}"
-                -->
-
+                         selection="#{mercanciasController.selected}">
 
                 <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:MercanciasDataTableContextMenu"/>
                 <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:MercanciasDataTableContextMenu"/>

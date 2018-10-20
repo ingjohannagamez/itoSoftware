@@ -5,8 +5,8 @@
  */
 package com.ito.controller;
 
-import com.ito.prueba.entidad.Usuarios;
-import com.ito.prueba.model.UsuariosFacade;
+import com.ito.prueba.entidad.Perfiles;
+import com.ito.prueba.model.PerfilesFacade;
 import controller.util.JsfUtil;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
@@ -18,15 +18,15 @@ import javax.faces.view.ViewScoped;
  *
  * @author pipo0
  */
-@Named(value = "usuariosController")
+@Named(value = "perfilesController")
 @ViewScoped
-public class UsuariosController extends AbstractController<Usuarios> implements Serializable {
+public class PerfilesController extends AbstractController<Perfiles> implements Serializable {
     
     @EJB
-    private UsuariosFacade ejbFacade;
+    private PerfilesFacade ejbFacade;
     
-    public UsuariosController() {
-        super(Usuarios.class);
+    public PerfilesController() {
+        super(Perfiles.class);
     }
     
     @PostConstruct
