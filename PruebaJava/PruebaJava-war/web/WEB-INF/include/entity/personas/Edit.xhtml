@@ -14,13 +14,6 @@
                 <h:panelGroup id="display">
                     <p:panelGrid  columns="2" columnClasses="column" rendered="#{personasController.selected != null}">
 
-
-                        <h:outputLabel value="#{myBundle.EditPersonasLabel_id}" for="id" />
-                        <h:panelGroup>
-                            <h:outputText id="id" value="#{personasController.selected.id}" />
-                            <p:tooltip for="id" value="#{personasController.getComponentMessages('id', myBundle.EditPersonasHelpText_id)}"/>
-                        </h:panelGroup>
-
                         <p:outputLabel value="#{myBundle.EditPersonasLabel_nombre}" for="nombre" />
                         <h:panelGroup>
                             <p:inputText id="nombre" value="#{personasController.selected.nombre}" title="#{myBundle.EditPersonasTitle_nombre}" size="20" maxlength="20"/>
@@ -47,7 +40,7 @@
                                     <f:selectItems value="#{usuariosController.items}"
                                                    var="usuariosItem"
                                                    itemValue="#{usuariosItem}"
-                                                   itemLabel="#{usuariosItem.id.toString()}"
+                                                   itemLabel="#{usuariosItem.toString()}"
                                                    />
 
                                 </p:selectOneMenu>

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.ito.controller;
 
 import com.ito.prueba.entidad.Perfiles;
@@ -22,8 +17,12 @@ import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 
 /**
- *
- * @author pipo0
+ * @Copyrigth [2018] www.ito-software.com
+ * @PerfilesController
+ * @Descripcion Controlador encargado de administrar los perfiles de los usuarios
+ * @author Johann Andres Agamez Ferres
+ * @Fecha Creación: 20/10/2018
+ * @Fecha ultima modificación: 21/10/2018
  */
 @Named(value = "perfilesController")
 @ViewScoped

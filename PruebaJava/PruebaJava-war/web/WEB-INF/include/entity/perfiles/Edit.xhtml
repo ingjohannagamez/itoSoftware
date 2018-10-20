@@ -14,13 +14,6 @@
                 <h:panelGroup id="display">
                     <p:panelGrid  columns="2" columnClasses="column" rendered="#{perfilesController.selected != null}">
 
-
-                        <h:outputLabel value="#{myBundle.EditPerfilesLabel_id}" for="id" />
-                        <h:panelGroup>
-                            <h:outputText id="id" value="#{perfilesController.selected.id}" />
-                            <p:tooltip for="id" value="#{perfilesController.getComponentMessages('id', myBundle.EditPerfilesHelpText_id)}"/>
-                        </h:panelGroup>
-
                         <p:outputLabel value="#{myBundle.EditPerfilesLabel_perfil}" for="perfil" />
                         <h:panelGroup>
                             <p:inputText id="perfil" value="#{perfilesController.selected.perfil}" title="#{myBundle.EditPerfilesTitle_perfil}" required="true" requiredMessage="#{myBundle.EditPerfilesRequiredMessage_perfil}" size="20" maxlength="20"/>

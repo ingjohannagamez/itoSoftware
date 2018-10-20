@@ -15,9 +15,6 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" columnClasses="column" rendered="#{usuariosController.selected != null}">
 
-                        <h:outputText value="#{myBundle.ViewUsuariosLabel_id}"/>
-                        <h:outputText value="#{usuariosController.selected.id}" title="#{myBundle.ViewUsuariosTitle_id}"/>
-
                         <h:outputText value="#{myBundle.ViewUsuariosLabel_usuario}"/>
                         <h:outputText value="#{usuariosController.selected.usuario}" title="#{myBundle.ViewUsuariosTitle_usuario}"/>
 
@@ -25,10 +22,10 @@
                         <h:outputText value="#{usuariosController.selected.contrasena}" title="#{myBundle.ViewUsuariosTitle_contrasena}"/>
 
                         <h:outputText value="#{myBundle.ViewUsuariosLabel_perfilId}"/>
-                        <h:outputText value="#{usuariosController.selected.perfilId.id}"/>
+                        <h:outputText value="#{usuariosController.selected.perfilId.toString()}"/>
 
                         <h:outputText value="#{myBundle.ViewUsuariosLabel_personaId}"/>
-                        <h:outputText value="#{usuariosController.selected.personaId.id}"/>
+                        <h:outputText value="#{usuariosController.selected.personaId.toString()}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{myBundle.Close}" onclick="PF('UsuariosViewDialog').hide()"/>
                 </h:panelGroup>

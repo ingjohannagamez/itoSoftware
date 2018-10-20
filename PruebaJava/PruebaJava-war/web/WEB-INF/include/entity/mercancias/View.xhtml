@@ -15,9 +15,6 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" columnClasses="column" rendered="#{mercanciasController.selected != null}">
 
-                        <h:outputText value="#{myBundle.ViewMercanciasLabel_id}"/>
-                        <h:outputText value="#{mercanciasController.selected.id}" title="#{myBundle.ViewMercanciasTitle_id}"/>
-
                         <h:outputText value="#{myBundle.ViewMercanciasLabel_nombreProducto}"/>
                         <h:outputText value="#{mercanciasController.selected.nombreProducto}" title="#{myBundle.ViewMercanciasTitle_nombreProducto}"/>
 
@@ -39,10 +36,10 @@
                         <h:outputText value="#{mercanciasController.selected.estadoEnvio}" title="#{myBundle.ViewMercanciasTitle_estadoEnvio}"/>
 
                         <h:outputText value="#{myBundle.ViewMercanciasLabel_destinatarioId}"/>
-                        <h:outputText value="#{mercanciasController.selected.destinatarioId.id}"/>
+                        <h:outputText value="#{mercanciasController.selected.destinatarioId.toString()}"/>
 
                         <h:outputText value="#{myBundle.ViewMercanciasLabel_usuarioRegistroId}"/>
-                        <h:outputText value="#{mercanciasController.selected.usuarioRegistroId.id}"/>
+                        <h:outputText value="#{mercanciasController.selected.usuarioRegistroId.toString()}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{myBundle.Close}" onclick="PF('MercanciasViewDialog').hide()"/>
                 </h:panelGroup>

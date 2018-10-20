@@ -14,13 +14,6 @@
                 <h:panelGroup id="display">
                     <p:panelGrid  columns="2" columnClasses="column" rendered="#{usuariosController.selected != null}">
 
-
-                        <h:outputLabel value="#{myBundle.EditUsuariosLabel_id}" for="id" />
-                        <h:panelGroup>
-                            <h:outputText id="id" value="#{usuariosController.selected.id}" />
-                            <p:tooltip for="id" value="#{usuariosController.getComponentMessages('id', myBundle.EditUsuariosHelpText_id)}"/>
-                        </h:panelGroup>
-
                         <p:outputLabel value="#{myBundle.EditUsuariosLabel_usuario}" for="usuario" />
                         <h:panelGroup>
                             <p:inputText id="usuario" value="#{usuariosController.selected.usuario}" title="#{myBundle.EditUsuariosTitle_usuario}" required="true" requiredMessage="#{myBundle.EditUsuariosRequiredMessage_usuario}" size="20" maxlength="20"/>
@@ -40,7 +33,7 @@
                                 <f:selectItems value="#{perfilesController.items}"
                                                var="perfilIdItem"
                                                itemValue="#{perfilIdItem}"
-                                               itemLabel="#{perfilIdItem.id.toString()}"
+                                               itemLabel="#{perfilIdItem.toString()}"
                                                />
 
                             </p:selectOneMenu>
@@ -54,7 +47,7 @@
                                 <f:selectItems value="#{personasController.items}"
                                                var="personaIdItem"
                                                itemValue="#{personaIdItem}"
-                                               itemLabel="#{personaIdItem.id.toString()}"
+                                               itemLabel="#{personaIdItem.toString()}"
                                                />
 
                             </p:selectOneMenu>

@@ -1,22 +1,20 @@
 package com.ito.controller;
 
-import controller.util.JsfUtil;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.event.ActionEvent;
 
-import javax.annotation.PostConstruct;
-import javax.faces.context.FacesContext;
 
 /**
- * Represents an abstract shell of to be used as JSF Controller to be used in
- * AJAX-enabled applications. No outcomes will be generated from its methods
- * since handling is designed to be done inside one page.
- *
- * @param <T> the concrete Entity type of the Controller bean to be created
+ * @Copyrigth [2018] www.ito-software.com
+ * @AbstractController
+ * @Descripcion Clase abstracta encargada de administrar las variables de las vistas
+ * para poder ser usadas en los controladores.
+ * @author Johann Andres Agamez Ferres
+ * @Fecha Creación: 20/10/2018
+ * @Fecha ultima modificación: 21/10/2018
  */
 public abstract class AbstractController<T> implements Serializable {
 
@@ -39,14 +37,6 @@ public abstract class AbstractController<T> implements Serializable {
         this.itemClass = itemClass;
     }
 
-    /**
-     * Creates a new instance of an underlying entity and assigns it to Selected
-     * property.
-     *
-     * @param event an event from the widget that wants to create a new,
-     * unmanaged Entity for the data layer
-     * @return a new, unmanaged Entity
-     */
     public T prepareCreate(ActionEvent event) {
         T newItem;
         try {
@@ -57,38 +47,6 @@ public abstract class AbstractController<T> implements Serializable {
             Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
         }
         return null;
-    }
-
-    /**
-     * Inform the user interface whether any validation error exist on a page.
-     *
-     * @return a logical value whether form validation has passed or failed
-     */
-    public boolean isValidationFailed() {
-        return JsfUtil.isValidationFailed();
-    }
-
-    /**
-     * Retrieve all messages as a String to be displayed on the page.
-     *
-     * @param clientComponent the component for which the message applies
-     * @param defaultMessage a default message to be shown
-     * @return a concatenation of all messages
-     */
-    public String getComponentMessages(String clientComponent, String defaultMessage) {
-        return JsfUtil.getComponentMessages(clientComponent, defaultMessage);
-    }
-
-    /**
-     * Retrieve a collection of Entity items for a specific Controller from
-     * another JSF page via Request parameters.
-     */
-    @PostConstruct
-    public void initParams() {
-        Object paramItems = FacesContext.getCurrentInstance().getExternalContext().getRequestMap().get(itemClass.getSimpleName() + "_items");
-        if (paramItems != null) {
-            setItems((List<T>) paramItems);
-        }
     }
 
     public void refreshItems() {

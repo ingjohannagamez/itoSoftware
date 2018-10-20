@@ -14,13 +14,6 @@
                 <h:panelGroup id="display">
                     <p:panelGrid  columns="2" columnClasses="column" rendered="#{mercanciasController.selected != null}">
 
-
-                        <h:outputLabel value="#{myBundle.EditMercanciasLabel_id}" for="id" />
-                        <h:panelGroup>
-                            <h:outputText id="id" value="#{mercanciasController.selected.id}" />
-                            <p:tooltip for="id" value="#{mercanciasController.getComponentMessages('id', myBundle.EditMercanciasHelpText_id)}"/>
-                        </h:panelGroup>
-
                         <p:outputLabel value="#{myBundle.EditMercanciasLabel_nombreProducto}" for="nombreProducto" />
                         <h:panelGroup>
                             <p:inputText id="nombreProducto" value="#{mercanciasController.selected.nombreProducto}" title="#{myBundle.EditMercanciasTitle_nombreProducto}" size="20" maxlength="20"/>
@@ -64,7 +57,7 @@
                                 <f:selectItems value="#{personasController.items}"
                                                var="destinatarioIdItem"
                                                itemValue="#{destinatarioIdItem}"
-                                               itemLabel="#{destinatarioIdItem.id.toString()}"
+                                               itemLabel="#{destinatarioIdItem.toString()}"
                                                />
 
                             </p:selectOneMenu>

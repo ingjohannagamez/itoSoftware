@@ -15,9 +15,6 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" columnClasses="column" rendered="#{perfilesController.selected != null}">
 
-                        <h:outputText value="#{myBundle.ViewPerfilesLabel_id}"/>
-                        <h:outputText value="#{perfilesController.selected.id}" title="#{myBundle.ViewPerfilesTitle_id}"/>
-
                         <h:outputText value="#{myBundle.ViewPerfilesLabel_perfil}"/>
                         <h:outputText value="#{perfilesController.selected.perfil}" title="#{myBundle.ViewPerfilesTitle_perfil}"/>
                     </p:panelGrid>

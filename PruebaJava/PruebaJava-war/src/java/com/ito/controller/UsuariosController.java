@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.ito.controller;
 
 import com.ito.prueba.entidad.Usuarios;
@@ -28,12 +23,12 @@ import javax.validation.ConstraintViolationException;
 import org.primefaces.PrimeFaces;
 
 /**
- * @Copyrigth [2014] www.softwarevital.com
- * @LoginController
+ * @Copyrigth [2018] www.ito-software.com
+ * @UsuariosController
  * @Descripcion Controlador encargado de administrar los accesos de los usuarios
  * @author Johann Andres Agamez Ferres
- * @Fecha Creación: 05/11/2014
- * @Fecha ultima modificación: 06/11/2014
+ * @Fecha Creación: 20/10/2018
+ * @Fecha ultima modificación: 21/10/2018
  */
 @Named(value = "usuariosController")
 @ViewScoped

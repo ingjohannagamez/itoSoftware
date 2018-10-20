@@ -15,9 +15,6 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" columnClasses="column" rendered="#{personasController.selected != null}">
 
-                        <h:outputText value="#{myBundle.ViewPersonasLabel_id}"/>
-                        <h:outputText value="#{personasController.selected.id}" title="#{myBundle.ViewPersonasTitle_id}"/>
-
                         <h:outputText value="#{myBundle.ViewPersonasLabel_nombre}"/>
                         <h:outputText value="#{personasController.selected.nombre}" title="#{myBundle.ViewPersonasTitle_nombre}"/>
 
@@ -29,7 +26,7 @@
 
                         <ui:remove>
                             <h:outputText value="#{myBundle.ViewPersonasLabel_usuarios}"/>
-                            <h:outputText value="#{personasController.selected.usuarios.id}"/>
+                            <h:outputText value="#{personasController.selected.usuarios.toString()}"/>
                         </ui:remove>
                     </p:panelGrid>
                     <p:commandButton value="#{myBundle.Close}" onclick="PF('PersonasViewDialog').hide()"/>
