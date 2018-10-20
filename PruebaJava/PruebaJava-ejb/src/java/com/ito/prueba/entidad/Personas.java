@@ -101,7 +101,6 @@ public class Personas implements Serializable {
         this.mercanciasList = mercanciasList;
     }
 
-    @XmlTransient
     public Usuarios getUsuarios() {
         return usuarios;
     }

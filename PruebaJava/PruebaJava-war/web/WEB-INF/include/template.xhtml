@@ -16,11 +16,17 @@
 
         <p:growl id="growl" life="3000" globalOnly="true"/>
 
-        <p:layout fullPage="true">
+        <p:layout id="plantilla" fullPage="true">
             <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true">
                 <h:form>            
-                    <h:outputLink value="javascript:void(0)" onclick="PF('dlg').show();" title="login">
+                    <h:outputLink value="javascript:void(0)" onclick="PF('dlg').show();" title="login"
+                                  rendered="#{!sessionItoSoftware.menuVisible}">
                         <p:graphicImage name="/images/login.png" />
+                    </h:outputLink>
+                    
+                    <h:outputLink value="javascript:void(0)" onclick="PF('dlgSalida').show();" title="login"
+                                  rendered="#{sessionItoSoftware.menuVisible}">
+                        <p:graphicImage name="/images/login_salida.png" />
                     </h:outputLink>
 
                     <p:dialog header="Login" widgetVar="dlg" resizable="false">
@@ -34,6 +40,21 @@
                             <f:facet name="footer">
                                 <p:commandButton value="Login" update="growl" actionListener="#{usuariosController.login}"
                                                  oncomplete="handleLoginRequest(xhr, status, args)" />
+                            </f:facet>  
+                        </h:panelGrid>
+                    </p:dialog>
+                    
+                    <p:dialog header="Salir Login" widgetVar="dlgSalida" resizable="false">
+                        <h:panelGrid columns="2" cellpadding="5">
+                            <h:outputLabel for="username" value="Username:" />
+                            <p:outputLabel value="#{sessionItoSoftware.datosAcceso.usuario}"/>
+
+                            <h:outputLabel for="password" value="Password:" />
+                            <p:outputLabel value="#{sessionItoSoftware.datosAcceso.contrasena}"/>
+
+                            <f:facet name="footer">
+                                <p:commandButton value="Salir Login" update="growl" actionListener="#{usuariosController.closeSession()}"
+                                                 oncomplete="handleOutLoginRequest(xhr, status, args)" />
                             </f:facet>  
                         </h:panelGrid>
                     </p:dialog>

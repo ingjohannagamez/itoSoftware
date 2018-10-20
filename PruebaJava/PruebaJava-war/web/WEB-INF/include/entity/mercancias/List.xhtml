@@ -59,7 +59,17 @@
                         <h:outputText value="#{myBundle.ListMercanciasTitle_fechaSalida}"/>
                     </f:facet>
                     <h:outputText value="#{item.fechaSalida}">
-                        <f:convertDateTime pattern="HH:mm:ss" />
+                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                    </h:outputText>
+                </p:column>
+                
+                
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Fecha de Entrega"/>
+                    </f:facet>
+                    <h:outputText value="#{mercanciasController.sumarRestarDiasFecha(item)}">
+                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
                     </h:outputText>
                 </p:column>
 

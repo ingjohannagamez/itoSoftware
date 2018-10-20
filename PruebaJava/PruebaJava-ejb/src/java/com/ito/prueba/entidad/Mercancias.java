@@ -43,7 +43,7 @@ public class Mercancias implements Serializable {
     @Size(max = 20)
     private String direccion;
     @Column(name = "fecha_salida")
-    @Temporal(TemporalType.TIME)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date fechaSalida;
     private Integer precio;
     @Size(max = 10)

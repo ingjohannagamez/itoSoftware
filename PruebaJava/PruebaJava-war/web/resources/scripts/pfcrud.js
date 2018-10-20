@@ -20,3 +20,10 @@ function handleLoginRequest(xhr, status, args) {
         $('#loginLink').fadeOut();
     }
 }
+function handleOutLoginRequest(xhr, status, args) {
+    PF('dlgSalida').hide();
+    $('#loginLink').fadeOut();
+}
+function actualizar() {
+    location.reload(true);
+}

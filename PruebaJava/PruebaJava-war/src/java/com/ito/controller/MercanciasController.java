@@ -7,17 +7,22 @@ package com.ito.controller;
 
 import com.ito.prueba.entidad.Mercancias;
 import com.ito.prueba.model.MercanciasFacade;
+import com.ito.util.SessionItoSoftware;
 import controller.util.JsfUtil;
 import java.io.Serializable;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
+import javax.servlet.http.HttpSession;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 
@@ -28,33 +33,39 @@ import javax.validation.ConstraintViolationException;
 @Named(value = "mercanciasController")
 @ViewScoped
 public class MercanciasController extends AbstractController<Mercancias> implements Serializable {
-    
+
     @EJB
     private MercanciasFacade ejbFacade;
-    
+
+    private SessionItoSoftware sessionItoSoftware;
+
     public MercanciasController() {
         super(Mercancias.class);
     }
-    
+
     @PostConstruct
     private void init() {
         try {
+            HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+            this.sessionItoSoftware = (SessionItoSoftware) session.getAttribute("sessionItoSoftware");
             this.setItems(this.ejbFacade.findAll());
         } catch (Exception e) {
             JsfUtil.addErrorMessage("Error al cargar el listado");
         }
     }
-    
+
     public void saveNew(ActionEvent event) {
         String msg = ResourceBundle.getBundle("/MyBundle").getString(this.getItemClass().getSimpleName() + "Created");
+        this.getSelected().setUsuarioRegistroId(this.sessionItoSoftware.getDatosAcceso());
         persist(AbstractController.PersistAction.CREATE, msg);
     }
-    
+
     public void save(ActionEvent event) {
         String msg = ResourceBundle.getBundle("/MyBundle").getString(this.getItemClass().getSimpleName() + "Updated");
+        this.getSelected().setUsuarioRegistroId(this.sessionItoSoftware.getDatosAcceso());
         persist(AbstractController.PersistAction.UPDATE, msg);
     }
-    
+
     public void delete(ActionEvent event) {
         String msg = ResourceBundle.getBundle("/MyBundle").getString(this.getItemClass().getSimpleName() + "Deleted");
         persist(AbstractController.PersistAction.DELETE, msg);
@@ -105,5 +116,25 @@ public class MercanciasController extends AbstractController<Mercancias> impleme
             }
         }
     }
-    
+
+    public Date sumarRestarDiasFecha(Mercancias mercancias) {
+        int dias;
+        Calendar calendar = Calendar.getInstance();
+        try {
+            if (mercancias.getDestinatarioId().getUsuarios() != null && 
+                mercancias.getDestinatarioId().getUsuarios().getPerfilId().getPerfil().equals("Empleado")) {
+                dias = 1;
+            } else {
+                dias = 3;
+            }
+
+            calendar.setTime(mercancias.getFechaSalida());
+            calendar.add(Calendar.DAY_OF_YEAR, dias);
+        } catch (Exception e) {
+            calendar.setTime(mercancias.getFechaSalida());
+        }
+
+        return calendar.getTime();
+    }
+
 }

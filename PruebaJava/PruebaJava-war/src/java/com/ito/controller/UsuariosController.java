@@ -7,7 +7,9 @@ package com.ito.controller;
 
 import com.ito.prueba.entidad.Usuarios;
 import com.ito.prueba.model.UsuariosFacade;
+import com.ito.util.SessionItoSoftware;
 import controller.util.JsfUtil;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -16,16 +18,22 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
+import javax.servlet.http.HttpSession;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import org.primefaces.PrimeFaces;
 
 /**
- *
- * @author pipo0
+ * @Copyrigth [2014] www.softwarevital.com
+ * @LoginController
+ * @Descripcion Controlador encargado de administrar los accesos de los usuarios
+ * @author Johann Andres Agamez Ferres
+ * @Fecha Creación: 05/11/2014
+ * @Fecha ultima modificación: 06/11/2014
  */
 @Named(value = "usuariosController")
 @ViewScoped
@@ -116,8 +124,16 @@ public class UsuariosController extends AbstractController<Usuarios> implements 
         boolean loggedIn = false;
 
         Usuarios objTemp = validarAcceso();
-        
+
         if (objTemp != null) {
+            HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
+            SessionItoSoftware sessionItoSoftware = new SessionItoSoftware();
+            
+            sessionItoSoftware.setIDSESION(session.getId());
+            sessionItoSoftware.setDatosAcceso(objTemp);
+            sessionItoSoftware.setMenuVisible(true);
+            
+            session.setAttribute("sessionItoSoftware", sessionItoSoftware);
             loggedIn = true;
             message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Welcome", username);
         } else {
@@ -127,6 +143,7 @@ public class UsuariosController extends AbstractController<Usuarios> implements 
 
         JsfUtil.addMessage(null, message);
         PrimeFaces.current().ajax().addCallbackParam("loggedIn", loggedIn);
+        PrimeFaces.current().executeScript("actualizar()");
     }
 
     private Usuarios validarAcceso() {
@@ -137,6 +154,15 @@ public class UsuariosController extends AbstractController<Usuarios> implements 
             respuesta = null;
         }
         return respuesta;
+    }
+
+    public void closeSession() throws IOException {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
+        PrimeFaces.current().executeScript("actualizar()");
     }
 
     public String getUsername() {

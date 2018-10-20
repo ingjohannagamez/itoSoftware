@@ -35,7 +35,7 @@
 
                         <p:outputLabel value="#{myBundle.CreateMercanciasLabel_fechaSalida}" for="fechaSalida" />
                         <h:panelGroup>
-                            <p:calendar id="fechaSalida" pattern="HH:mm:ss" value="#{mercanciasController.selected.fechaSalida}" title="#{myBundle.CreateMercanciasTitle_fechaSalida}"  showOn="button"/>
+                            <p:calendar id="fechaSalida" pattern="dd/MM/yyyy HH:mm:ss" value="#{mercanciasController.selected.fechaSalida}" title="#{myBundle.CreateMercanciasTitle_fechaSalida}"  showOn="button"/>
                             <p:tooltip for="fechaSalida" value="#{mercanciasController.getComponentMessages('fechaSalida', myBundle.CreateMercanciasHelpText_fechaSalida)}"/>
                         </h:panelGroup>
 
@@ -65,19 +65,21 @@
                             <p:tooltip for="destinatarioId" value="#{mercanciasController.getComponentMessages('destinatarioId', myBundle.CreateMercanciasHelpText_destinatarioId)}"/>
                         </h:panelGroup>
 
-                        <p:outputLabel value="#{myBundle.CreateMercanciasLabel_usuarioRegistroId}" for="usuarioRegistroId" />
-                        <h:panelGroup>
-                            <p:selectOneMenu id="usuarioRegistroId" value="#{mercanciasController.selected.usuarioRegistroId}"  converter="usuariosConverter">
-                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
-                                <f:selectItems value="#{usuariosController.items}"
-                                               var="usuarioRegistroIdItem"
-                                               itemValue="#{usuarioRegistroIdItem}"
-                                               itemLabel="#{usuarioRegistroIdItem.toString()}"
-                                               />
+                        <ui:remove>
+                            <p:outputLabel value="#{myBundle.CreateMercanciasLabel_usuarioRegistroId}" for="usuarioRegistroId" />
+                            <h:panelGroup>
+                                <p:selectOneMenu id="usuarioRegistroId" value="#{mercanciasController.selected.usuarioRegistroId}"  converter="usuariosConverter">
+                                    <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                    <f:selectItems value="#{usuariosController.items}"
+                                                   var="usuarioRegistroIdItem"
+                                                   itemValue="#{usuarioRegistroIdItem}"
+                                                   itemLabel="#{usuarioRegistroIdItem.toString()}"
+                                                   />
 
-                            </p:selectOneMenu>
-                            <p:tooltip for="usuarioRegistroId" value="#{mercanciasController.getComponentMessages('usuarioRegistroId', myBundle.CreateMercanciasHelpText_usuarioRegistroId)}"/>
-                        </h:panelGroup>
+                                </p:selectOneMenu>
+                                <p:tooltip for="usuarioRegistroId" value="#{mercanciasController.getComponentMessages('usuarioRegistroId', myBundle.CreateMercanciasHelpText_usuarioRegistroId)}"/>
+                            </h:panelGroup>
+                        </ui:remove>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{mercanciasController.saveNew}" value="#{myBundle.Save}" update="display,:MercanciasListForm:datalist,:growl" oncomplete="handleSubmit(xhr,status,args,PF('MercanciasCreateDialog'));">
                         <p:confirm header="#{myBundle.ConfirmationHeader}" message="#{myBundle.ConfirmCreateMessage}" icon="ui-icon-alert"/>
