@@ -1,5 +1,6 @@
 package com.ito.controller;
 
+import controller.util.JsfUtil;
 import java.io.Serializable;
 import java.util.List;
 import java.util.logging.Level;
@@ -35,6 +36,10 @@ public abstract class AbstractController<T> implements Serializable {
 
     public AbstractController(Class<T> itemClass) {
         this.itemClass = itemClass;
+    }
+    
+    public String getComponentMessages(String clientComponent, String defaultMessage) {
+        return JsfUtil.getComponentMessages(clientComponent, defaultMessage);
     }
 
     public T prepareCreate(ActionEvent event) {
